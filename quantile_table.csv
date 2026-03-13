@@ -1,0 +1,9 @@
+,source,element,min,q25,median,q75,max
+1,NOAA Sea Level Difference,raw,-8.40,-2.60,-0.60,2.70,13.00
+2,NOAA Sea Level Difference,trend,-3.17,-1.69,0.13,1.62,2.67
+3,NOAA Sea Level Difference,seasonal,-4.90,-1.96,-0.69,2.01,6.97
+4,NOAA Sea Level Difference,residual,-5.74,-1.30,-0.08,1.35,7.16
+5,UCSC ERA5 Sea Level Difference,raw,-5.31,-1.89,-0.43,1.50,8.45
+6,UCSC ERA5 Sea Level Difference,trend,-1.32,-0.51,0.06,0.43,1.68
+7,UCSC ERA5 Sea Level Difference,seasonal,-3.24,-1.73,-0.55,1.56,4.94
+8,UCSC ERA5 Sea Level Difference,residual,-3.29,-1.00,0.00,0.96,5.20
