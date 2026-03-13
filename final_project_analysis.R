@@ -6,7 +6,7 @@ library(lmtest)
 # Read in NOAA tide gauge data (downloaded from their Water Levels Website) ---------------------------------------------
 
 # Upload the NOAA tide guage data that was downloaded from https://tidesandcurrents.noaa.gov/stations.html?type=Water+Levels
-msl_all <- read.csv("/Users/jordanasevigny/Documents/UCSC/Time Series Analysis OCEA 267/Final project/msl_noaa.csv")
+msl_all <- read.csv("/Users/jordanasevigny/git/time-series-analysis-final-project/msl_noaa.csv")
 
 # Switch Mean Sea Level from m from cm and subtract longterm mean to ensure we are comparing anomalies between all locations / data sources
 msl_sd <- msl_all %>% filter(station=="9410170") %>% mutate(MSL=MSL*100)  %>% mutate(MSL = MSL-mean(MSL)) # m to cm and cacl anomaly
@@ -34,7 +34,7 @@ start_year = 1994
 end_year = 2019
 
 # Monterey Bay
-mb_sea_level <- nc_open("/Users/jordanasevigny/Documents/UCSC/edwards_lab/sea_level/sea_level_wcofs/zeta_timeseries_wcofs2_1994_2020_253_434.nc")
+mb_sea_level <- nc_open("/Users/jordanasevigny/git/time-series-analysis-final-projectzeta_timeseries_wcofs2_1994_2020_253_434.nc")
 
 mb_zeta  <- ncvar_get(mb_sea_level, "zeta")
 mb_ot  <- ncvar_get(mb_sea_level, "ocean_time")
@@ -63,7 +63,7 @@ mb_mm <- mb_df %>%
 mb_ts_wcofs = ts(data = mb_mm$monthly_mean, frequency = 12, start = c(start_year, 1))
 
 # San Diego
-sd_sea_level <- nc_open("/Users/jordanasevigny/Documents/UCSC/edwards_lab/sea_level/sea_level_wcofs/zeta_timeseries_wcofs2_1994_2020_314_290.nc")
+sd_sea_level <- nc_open("/Users/jordanasevigny/git/time-series-analysis-final-project/zeta_timeseries_wcofs2_1994_2020_314_290.nc")
 
 sd_zeta  <- ncvar_get(sd_sea_level, "zeta")
 sd_ot  <- ncvar_get(sd_sea_level, "ocean_time")
