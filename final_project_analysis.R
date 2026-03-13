@@ -177,6 +177,47 @@ hist(y_stl$time.series[, "remainder"], main = "NOAA Sea Level Difference (MB-SD)
 hist(y_stl_wcofs$time.series[, "remainder"], main = "UCSC ERA5 Sea Level Difference (MB-SD)\nResidual Histogram", xlab="Residual (cm)", col="purple", cex.axis = 2, cex.lab = 2.5, cex.main = 2)
 dev.off()
 
+# Decomposition ranges
+
+# Raw
+max(y_stl$time.series[, "seasonal"]) - min(y_stl$time.series[, "seasonal"])
+max(y_stl_wcofs$time.series[, "seasonal"]) - min(y_stl_wcofs$time.series[, "seasonal"])
+quantile(y_stl$time.series[, "seasonal"])
+quantile(y_stl_wcofs$time.series[, "seasonal"])
+
+# Trend
+max(y_stl$time.series[, "trend"]) - min(y_stl$time.series[, "trend"])
+max(y_stl_wcofs$time.series[, "trend"]) - min(y_stl_wcofs$time.series[, "trend"])
+quantile(y_stl$time.series[, "trend"])
+quantile(y_stl_wcofs$time.series[, "trend"])
+
+# Seasonal
+max(ts_diff) - min(ts_diff)
+max(ts_wcofs_diff) - min(ts_wcofs_diff)
+quantile(ts_diff)
+quantile(ts_wcofs_diff)
+
+# Residual
+max(y_stl$time.series[, "remainder"]) - min(y_stl$time.series[, "remainder"])
+max(y_stl_wcofs$time.series[, "remainder"]) - min(y_stl_wcofs$time.series[, "remainder"])
+quantile(y_stl$time.series[, "remainder"])
+quantile(y_stl_wcofs$time.series[, "remainder"])
+
+# Quartile table
+tbl <- data.frame(
+  source = c(rep("NOAA Sea Level Difference", 4), rep("UCSC ERA5 Sea Level Difference", 4)),
+  element = c("raw", "trend", "seasonal", "residual", "raw", "trend", "seasonal", "residual"),
+  min = c(quantile(ts_diff)[1], quantile(y_stl$time.series[, "trend"])[1], quantile(y_stl$time.series[, "seasonal"])[1], quantile(y_stl$time.series[, "remainder"])[1], quantile(ts_wcofs_diff)[1], quantile(y_stl_wcofs$time.series[, "trend"])[1], quantile(y_stl_wcofs$time.series[, "seasonal"])[1], quantile(y_stl_wcofs$time.series[, "remainder"])[1]),
+  q25 = c(quantile(ts_diff)[2], quantile(y_stl$time.series[, "trend"])[2], quantile(y_stl$time.series[, "seasonal"])[2], quantile(y_stl$time.series[, "remainder"])[2], quantile(ts_wcofs_diff)[2], quantile(y_stl_wcofs$time.series[, "trend"])[2], quantile(y_stl_wcofs$time.series[, "seasonal"])[2], quantile(y_stl_wcofs$time.series[, "remainder"])[2]),
+  median = c(quantile(ts_diff)[3], quantile(y_stl$time.series[, "trend"])[3], quantile(y_stl$time.series[, "seasonal"])[3], quantile(y_stl$time.series[, "remainder"])[3], quantile(ts_wcofs_diff)[3], quantile(y_stl_wcofs$time.series[, "trend"])[3], quantile(y_stl_wcofs$time.series[, "seasonal"])[3], quantile(y_stl_wcofs$time.series[, "remainder"])[3]),
+  q75 = c(quantile(ts_diff)[4], quantile(y_stl$time.series[, "trend"])[4], quantile(y_stl$time.series[, "seasonal"])[4], quantile(y_stl$time.series[, "remainder"])[4], quantile(ts_wcofs_diff)[4], quantile(y_stl_wcofs$time.series[, "trend"])[4], quantile(y_stl_wcofs$time.series[, "seasonal"])[4], quantile(y_stl_wcofs$time.series[, "remainder"])[4]),
+  max = c(quantile(ts_diff)[5], quantile(y_stl$time.series[, "trend"])[5], quantile(y_stl$time.series[, "seasonal"])[5], quantile(y_stl$time.series[, "remainder"])[5], quantile(ts_wcofs_diff)[5], quantile(y_stl_wcofs$time.series[, "trend"])[5], quantile(y_stl_wcofs$time.series[, "seasonal"])[5], quantile(y_stl_wcofs$time.series[, "remainder"])[5])
+)
+
+print(tbl)
+write.csv(tbl, "/Users/jordanasevigny/git/time-series-analysis-final-project/Final project/quantile_table.csv")
+
+
 # Plot UCSC ERA 5 vs NOAA for trend, seasonality, residual
 # Raw
 plot(ts_wcofs_diff, ts_diff)
